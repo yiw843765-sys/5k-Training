@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>✨ My 5k & BCT Glow Up Tracker ✨</title>
+  <title>Daily Workout & Progress</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -39,7 +39,7 @@
 
     header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     h1 {
@@ -63,7 +63,7 @@
     .workout-card {
       background: #FFF0F3;
       border-radius: 20px;
-      padding: 20px;
+      padding: 18px;
       border: 2px dashed var(--primary-pink);
       margin-top: 15px;
     }
@@ -71,49 +71,92 @@
     .workout-title {
       font-family: 'Fredoka', sans-serif;
       color: var(--accent-purple);
-      font-size: 20px;
+      font-size: 19px;
       margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
-    .task-item {
-      display: flex;
-      align-items: center;
+    .exercise-block {
       background: var(--card-bg);
       padding: 12px 15px;
       border-radius: 15px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-      gap: 12px;
-      transition: all 0.2s ease;
     }
 
-    .task-item input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      accent-color: var(--primary-pink);
-      cursor: pointer;
-    }
-
-    .task-item label {
+    .exercise-name {
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .sets-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .set-pill {
+      background: #F0F0F0;
+      color: var(--text-dark);
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
       cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      border: 1px solid #E0E0E0;
     }
 
-    .task-item input[type="checkbox"]:checked + label {
+    .set-pill.completed {
+      background: var(--primary-pink);
+      color: white;
+      border-color: var(--primary-pink);
       text-decoration: line-through;
-      color: var(--text-soft);
     }
 
-    .quote-box {
+    .upload-box {
+      margin-top: 15px;
+      background: #FDF2F8;
+      border: 2px dotted var(--primary-pink);
+      border-radius: 15px;
+      padding: 12px;
       text-align: center;
+    }
+
+    .upload-box label {
       font-size: 13px;
-      color: var(--text-soft);
+      font-weight: 700;
+      color: var(--accent-purple);
+      cursor: pointer;
+      display: block;
+    }
+
+    .upload-box input {
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    .music-box {
+      background: #F4EEFF;
+      border-radius: 15px;
+      padding: 12px 15px;
       margin-top: 20px;
-      font-style: italic;
+      text-align: center;
+      border: 1px solid #D8B4FE;
+    }
+
+    .music-title {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--accent-purple);
+      margin-bottom: 4px;
+    }
+
+    .song-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
     }
   </style>
 </head>
@@ -121,83 +164,104 @@
 
 <div class="container">
   <header>
-    <h1>✨ Daily Glow Up Tracker ✨</h1>
+    <h1>✨ Daily Workout & Progress ✨</h1>
     <div class="date-badge" id="current-day-label">Loading...</div>
   </header>
 
   <div class="workout-card">
     <div class="workout-title" id="workout-title">🎯 Today's Mission</div>
     <div id="taskList"></div>
+
+    <!-- Screenshot Upload Slot -->
+    <div class="upload-box" id="upload-section">
+      <label for="run-ss">📸 Upload Run Screenshot</label>
+      <input type="file" id="run-ss" accept="image/*">
+    </div>
   </div>
 
-  <div class="quote-box">
-    🌸 "One workout closer to crushin' the 5k and Army BCT!" 🌸
+  <!-- Random Motivational Song Box -->
+  <div class="music-box">
+    <div class="music-title">🎵 Today's Hype Song</div>
+    <div class="song-name" id="song-display">Loading track...</div>
   </div>
 </div>
 
 <script>
+  const songs = [
+    "🔥 'Eye of the Tiger' - Survivor",
+    "⚡ 'Remember the Name' - Fort Minor",
+    "👑 'Run the World (Girls)' - Beyoncé",
+    "🚀 'Can't Hold Us' - Macklemore",
+    "💪 'Stronger' - Kanye West",
+    "💥 'Till I Collapse' - Eminem",
+    "✨ 'Unstoppable' - Sia"
+  ];
+
   const schedule = {
-    0: { // Sunday
+    0: {
       title: "🛌 Sunday Rest & Recovery",
-      tasks: [
-        "Full rest day — let your muscles rebuild!",
-        "10-15 mins light stretching / foam rolling",
-        "Hydrate with plenty of water & electrolytes",
-        "Prep gear and mental focus for Week 2"
+      isRunDay: false,
+      exercises: [
+        { name: "Light Stretching & Foam Rolling", sets: ["10-15 Mins"] },
+        { name: "Hydrate & Electrolytes", sets: ["Done"] }
       ]
     },
-    1: { // Monday
+    1: {
       title: "🏋️‍♀️ Monday: Heavy Upper Push & Strength",
-      tasks: [
-        "3 x 8 Dumbbell RDLs (20 lbs)",
-        "3 x 10 Smith Machine Incline Push-ups",
-        "3 x 10 Cable Seated Rows (17.5 lbs)",
-        "3 x 1-min Planks"
+      isRunDay: false,
+      exercises: [
+        { name: "Dumbbell RDLs (20 lbs)", sets: ["Set 1 (8 reps)", "Set 2 (8 reps)", "Set 3 (8 reps)"] },
+        { name: "Smith Machine Incline Push-ups", sets: ["Set 1 (10 reps)", "Set 2 (10 reps)", "Set 3 (10 reps)"] },
+        { name: "Cable Seated Rows (17.5 lbs)", sets: ["Set 1 (10 reps)", "Set 2 (10 reps)", "Set 3 (10 reps)"] },
+        { name: "Forearm Planks", sets: ["Set 1 (60s)", "Set 2 (60s)", "Set 3 (60s)"] }
       ]
     },
-    2: { // Tuesday
+    2: {
       title: "👟 Tuesday: 2-Mile Aerobic Jog",
-      tasks: [
-        "5-min walk + dynamic stretches",
-        "2.0-Mile Jog at easy conversational pace (~10:00/mi)",
-        "5-min cool-down walk + hamstring stretches"
+      isRunDay: true,
+      exercises: [
+        { name: "Warm-up Walk & Stretches", sets: ["5 Mins"] },
+        { name: "2.0-Mile Jog (~10:00/mi)", sets: ["Mile 1", "Mile 2"] },
+        { name: "Cool-down Walk & Leg Stretches", sets: ["5 Mins"] }
       ]
     },
-    3: { // Wednesday
+    3: {
       title: "🧘‍♀️ Wednesday: Active Recovery & Mobility",
-      tasks: [
-        "20-30 min easy outdoor walk or light spin",
-        "Hamstring & Calf stretches (30s per leg)",
-        "Cat-Cow & Cobra stretches for back relief",
-        "Doorway chest opening stretches"
+      isRunDay: false,
+      exercises: [
+        { name: "Easy Walk or Light Spin", sets: ["20-30 Mins"] },
+        { name: "Hamstring & Calf Stretches", sets: ["Set 1", "Set 2"] },
+        { name: "Cat-Cow & Cobra Stretches", sets: ["Set 1", "Set 2"] }
       ]
     },
-    4: { // Thursday
+    4: {
       title: "🔥 Thursday: Tempo Run + Power & Grip",
-      tasks: [
-        "2.0-Mile Tempo Run (~9:40-9:50/mi pace)",
-        "4 x 40m Heavy Dumbbell Farmer's Carries (20-25 lb DBs)",
-        "3 x 10 Cable Horizontal Pallof Presses per side",
-        "3 x 8-10 Dumbbell Overhead Presses (10-12.5 lb DBs)"
+      isRunDay: true,
+      exercises: [
+        { name: "2.0-Mile Tempo Run (~9:40-9:50/mi)", sets: ["Mile 1", "Mile 2"] },
+        { name: "Heavy Farmer's Carries (20-25 lb DBs)", sets: ["Set 1 (40m)", "Set 2 (40m)", "Set 3 (40m)", "Set 4 (40m)"] },
+        { name: "Cable Horizontal Pallof Press", sets: ["Set 1 (10 reps)", "Set 2 (10 reps)", "Set 3 (10 reps)"] },
+        { name: "Dumbbell Overhead Press (10-12.5 lbs)", sets: ["Set 1 (8-10 reps)", "Set 2 (8-10 reps)", "Set 3 (8-10 reps)"] }
       ]
     },
-    5: { // Friday
+    5: {
       title: "⚡ Friday: Bodyweight Circuit & Core",
-      tasks: [
-        "3 Rounds: 10-12 Incline Push-ups",
-        "3 Rounds: 12 Dumbbell Goblet Squats",
-        "3 Rounds: 10 Inverted Rows / Cable Pulldowns",
-        "3 Rounds: 15 Walking Lunges",
-        "3 Rounds: 45-60 Second Forearm Plank"
+      isRunDay: false,
+      exercises: [
+        { name: "Incline Push-ups", sets: ["Round 1", "Round 2", "Round 3"] },
+        { name: "Dumbbell Goblet Squats", sets: ["Round 1", "Round 2", "Round 3"] },
+        { name: "Inverted Rows / Cable Pulldowns", sets: ["Round 1", "Round 2", "Round 3"] },
+        { name: "Walking Lunges", sets: ["Round 1", "Round 2", "Round 3"] },
+        { name: "Forearm Plank Hold", sets: ["Round 1 (45s)", "Round 2 (45s)", "Round 3 (45s)"] }
       ]
     },
-    6: { // Saturday
+    6: {
       title: "🏃‍♀️ Saturday: Long Aerobic Endurance Run",
-      tasks: [
-        "5-min warm-up walk",
-        "2.5-Mile Run at smooth easy pace (~10:00-10:15/mi)",
-        "Take 1-min walk breaks if needed",
-        "Post-run hydration & leg stretching"
+      isRunDay: true,
+      exercises: [
+        { name: "Warm-up Walk", sets: ["5 Mins"] },
+        { name: "2.5-Mile Run (~10:00-10:15/mi)", sets: ["Mile 1", "Mile 2", "0.5 Mi Finish"] },
+        { name: "Cool-down Walk & Stretch", sets: ["5 Mins"] }
       ]
     }
   };
@@ -208,27 +272,45 @@
 
   document.getElementById('current-day-label').innerText = `${days[dayOfWeek]} Focus`;
 
+  // Random Hype Song
+  const randomSong = songs[Math.floor(Math.random() * songs.length)];
+  document.getElementById('song-display').innerText = randomSong;
+
   const todayData = schedule[dayOfWeek];
   document.getElementById('workout-title').innerText = todayData.title;
+
+  // Toggle Run Upload Box
+  if (!todayData.isRunDay) {
+    document.getElementById('upload-section').style.display = 'none';
+  }
 
   const taskListContainer = document.getElementById('taskList');
   taskListContainer.innerHTML = '';
 
-  todayData.tasks.forEach((task, index) => {
-    const taskDiv = document.createElement('div');
-    taskDiv.className = 'task-item';
-    
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.id = `task-${index}`;
+  todayData.exercises.forEach((item) => {
+    const block = document.createElement('div');
+    block.className = 'exercise-block';
 
-    const label = document.createElement('label');
-    label.htmlFor = `task-${index}`;
-    label.innerText = task;
+    const title = document.createElement('div');
+    title.className = 'exercise-name';
+    title.innerText = item.name;
+    block.appendChild(title);
 
-    taskDiv.appendChild(checkbox);
-    taskDiv.appendChild(label);
-    taskListContainer.appendChild(taskDiv);
+    const setsRow = document.createElement('div');
+    setsRow.className = 'sets-row';
+
+    item.sets.forEach((setText) => {
+      const pill = document.createElement('div');
+      pill.className = 'set-pill';
+      pill.innerText = setText;
+      pill.onclick = function() {
+        this.classList.toggle('completed');
+      };
+      setsRow.appendChild(pill);
+    });
+
+    block.appendChild(setsRow);
+    taskListContainer.appendChild(block);
   });
 </script>
 
