@@ -1,95 +1,236 @@
-## 📅 Complete Week-by-Week Training & Progress Log
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ My 5k & BCT Glow Up Tracker ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #FFF5F7;
+      --card-bg: #FFFFFF;
+      --primary-pink: #FF85A1;
+      --soft-pink: #FFC2D1;
+      --accent-purple: #B5179E;
+      --text-dark: #4A4E69;
+      --text-soft: #9A8C98;
+      --mint: #70E4C8;
+    }
 
-### Week 1 (Aug 4 – Aug 10): Baseline Phase
-- [x] **Mon (Strength):** DB RDLs 20lbs (3x8) | Incline Push-ups (3x10) | Seated Row 17.5lbs (3x10) | Planks (3x1 min)
-- [x] **Tue (Run):** 2.0-Mile Jog in 20:03 (10:00/mi pace)
-- [x] **Wed (Recovery):** Rest & Light Mobility
-- [x] **Thu (Tempo & Grip):** 2.0 Mile Tempo | Farmer's Carries (20lb DBs) | Pallof Press | DB Overhead Press
-- [ ] **Fri (Circuit):** 3 Rounds: 10 Push-ups, 12 Goblet Squats, 10 Rows, 15 Lunges, 45s Plank
-- [ ] **Sat (Long Run):** 2.5 Miles @ Easy Pace (10:00–10:15/mi)
-- [ ] **Sun (Rest):** Full Rest & Hydrate
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
 
----
+    .container {
+      width: 100%;
+      max-width: 450px;
+      background: var(--card-bg);
+      border-radius: 30px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(255, 133, 161, 0.15);
+      border: 3px solid var(--soft-pink);
+    }
 
-### Week 2 (Aug 11 – Aug 17): Building Core Strength
-*Goal: Add reps to gym lifts and increase long run distance slightly.*
-- [ ] **Mon (Strength):** DB RDLs 20lbs (3x10) | Incline Push-ups (3x10-12) | Seated Row 20lbs (3x10) | Planks (3x1:05 min)
-- [ ] **Tue (Run):** 2.0 Miles Easy Jog
-- [ ] **Wed (Recovery):** Rest & Stretching
-- [ ] **Thu (Tempo & Grip):** 2.0 Mile Tempo (Aim for ~9:45/mi) + Farmer's Carries (25lb DBs)
-- [ ] **Fri (Circuit):** 3 Rounds Bodyweight Conditioning
-- [ ] **Sat (Long Run):** 3.0 Miles @ Easy Pace
-- [ ] **Sun (Rest):** Full Recovery
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
----
+    h1 {
+      font-family: 'Fredoka', sans-serif;
+      color: var(--primary-pink);
+      font-size: 26px;
+      margin: 5px 0;
+    }
 
-### Week 3 (Aug 18 – Aug 24): Weight & Speed Progression
-*Goal: Lower the Smith Machine bar for push-ups and introduce 400m speed intervals.*
-- [ ] **Mon (Strength):** DB RDLs 25lbs (3x8) | Lower Smith Bar Push-ups (3x8-10) | Seated Row 22.5lbs (3x10)
-- [ ] **Tue (Speedwork):** 5 x 400m intervals @ 9:00/mi pace (90s walking rest between)
-- [ ] **Wed (Recovery):** Rest & Walk
-- [ ] **Thu (Tempo & Grip):** 2.0 Mile Tempo (Aim for ~9:35/mi) + Farmer's Carries (25lb DBs)
-- [ ] **Fri (Circuit):** 3 Rounds Conditioning + 1-min Plank Holds
-- [ ] **Sat (Long Run):** 3.5 Miles @ Easy Pace
-- [ ] **Sun (Rest):** Full Recovery
+    .date-badge {
+      display: inline-block;
+      background: var(--soft-pink);
+      color: var(--card-bg);
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-top: 5px;
+    }
 
----
+    .workout-card {
+      background: #FFF0F3;
+      border-radius: 20px;
+      padding: 20px;
+      border: 2px dashed var(--primary-pink);
+      margin-top: 15px;
+    }
 
-### Week 4 (Aug 25 – Aug 31): Mid-Way Peak
-*Goal: Move to heavier RDLs and build running stamina past 5k distance.*
-- [ ] **Mon (Strength):** DB RDLs 25lbs (3x10) | Lower Smith Bar Push-ups (3x10) | Planks (3x1:15 min)
-- [ ] **Tue (Run):** 2.25 Miles Easy Jog
-- [ ] **Wed (Recovery):** Rest & Mobility
-- [ ] **Thu (Tempo & Grip):** 2.25 Mile Tempo Run + Farmer's Carries (30lb DBs)
-- [ ] **Fri (Circuit):** 4 Rounds Bodyweight Conditioning
-- [ ] **Sat (Long Run):** 3.5 Miles @ Easy Pace
-- [ ] **Sun (Rest):** Full Recovery
+    .workout-title {
+      font-family: 'Fredoka', sans-serif;
+      color: var(--accent-purple);
+      font-size: 20px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
----
+    .task-item {
+      display: flex;
+      align-items: center;
+      background: var(--card-bg);
+      padding: 12px 15px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
 
-### Week 5 (Sep 1 – Sep 7): ACFT Capacity Phase
-*Goal: Challenge upper body strength and lock in your target race pace.*
-- [ ] **Mon (Strength):** DB RDLs 30lbs (3x8) or Smith Machine | Lower Smith Bar Push-ups (3x12)
-- [ ] **Tue (Speedwork):** 6 x 400m intervals @ 8:50/mi pace
-- [ ] **Wed (Recovery):** Rest & Walk
-- [ ] **Thu (Tempo & Grip):** 2.5 Mile Tempo (Aim for ~9:20/mi) + Heavy Farmer's Carries
-- [ ] **Fri (Circuit):** 4 Rounds Conditioning + Banded Sled Drag Simulations
-- [ ] **Sat (Long Run):** 4.0 Miles @ Easy Pace (Over-distance training)
-- [ ] **Sun (Rest):** Full Recovery
+    .task-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--primary-pink);
+      cursor: pointer;
+    }
 
----
+    .task-item label {
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
-### Week 6 (Sep 8 – Sep 14): Peak Endurance Week
-*Goal: Final hard week of strength and long distance before tapering.*
-- [ ] **Mon (Strength):** DB RDLs 30lbs (3x10) | Floor Hand-Release Push-up practice | Planks (3x1:30 min)
-- [ ] **Tue (Run):** 2.5 Miles Easy Jog
-- [ ] **Wed (Recovery):** Rest & Mobility
-- [ ] **Thu (Tempo & Grip):** 2.5 Mile Tempo Run @ Goal 5k Pace (~9:15/mi)
-- [ ] **Fri (Circuit):** 3 Rounds High Intensity Conditioning
-- [ ] **Sat (Long Run):** 4.0 Miles Easy Aerobic
-- [ ] **Sun (Rest):** Full Recovery
+    .task-item input[type="checkbox"]:checked + label {
+      text-decoration: line-through;
+      color: var(--text-soft);
+    }
 
----
+    .quote-box {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-top: 20px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
 
-### Week 7 (Sep 15 – Sep 20): Pre-Taper Phase
-*Goal: Maintaining speed while letting body start resting for race day.*
-- [ ] **Mon (Strength):** Moderate Weight Strength (Keep volume light to avoid heavy soreness)
-- [ ] **Tue (Speedwork):** 4 x 400m Light Sharp Intervals
-- [ ] **Wed (Recovery):** Active Walk & Stretching
-- [ ] **Thu (Tempo):** 2.0 Mile Easy/Moderate Tempo
-- [ ] **Fri (Circuit):** Light Bodyweight Mobility
-- [ ] **Sat (Long Run):** 3.0 Miles Easy Run
-- [ ] **Sun (Rest):** Full Recovery
+<div class="container">
+  <header>
+    <h1>✨ Daily Glow Up Tracker ✨</h1>
+    <div class="date-badge" id="current-day-label">Loading...</div>
+  </header>
 
----
+  <div class="workout-card">
+    <div class="workout-title" id="workout-title">🎯 Today's Mission</div>
+    <div id="taskList"></div>
+  </div>
 
-### Week 8 (Sep 21 – Sep 27): Race Week & Taper! 🏁
-*Goal: Rest legs, stay hydrated, and perform on Sunday!*
-- [ ] **Mon (Sep 21):** Very Light Strength (Light DBs, 2 sets only)
-- [ ] **Tue (Sep 22):** 1.5 Mile Shakeout Jog (Easy pace)
-- [ ] **Wed (Sep 23):** Full Rest / Walk & Foam Roll
-- [ ] **Thu (Sep 24):** 1.0 Mile Easy Jog + 3 short strides (Fast 50m sprints)
-- [ ] **Fri (Sep 25):** Complete Rest & Electrolyte Hydration
-- [ ] **Sat (Sep 26):** Rest Day, Packet Pickup, Prepare Gear & Shoes
-- [ ] **SUN (SEP 27): 🏃‍♀️ RACE DAY - MONOPOLY SAN ANTONIO 5K!**
-  * Target Finish Time: **Sub-29:00** (Pace: ~9:20/mi)
+  <div class="quote-box">
+    🌸 "One workout closer to crushin' the 5k and Army BCT!" 🌸
+  </div>
+</div>
+
+<script>
+  const schedule = {
+    0: { // Sunday
+      title: "🛌 Sunday Rest & Recovery",
+      tasks: [
+        "Full rest day — let your muscles rebuild!",
+        "10-15 mins light stretching / foam rolling",
+        "Hydrate with plenty of water & electrolytes",
+        "Prep gear and mental focus for Week 2"
+      ]
+    },
+    1: { // Monday
+      title: "🏋️‍♀️ Monday: Heavy Upper Push & Strength",
+      tasks: [
+        "3 x 8 Dumbbell RDLs (20 lbs)",
+        "3 x 10 Smith Machine Incline Push-ups",
+        "3 x 10 Cable Seated Rows (17.5 lbs)",
+        "3 x 1-min Planks"
+      ]
+    },
+    2: { // Tuesday
+      title: "👟 Tuesday: 2-Mile Aerobic Jog",
+      tasks: [
+        "5-min walk + dynamic stretches",
+        "2.0-Mile Jog at easy conversational pace (~10:00/mi)",
+        "5-min cool-down walk + hamstring stretches"
+      ]
+    },
+    3: { // Wednesday
+      title: "🧘‍♀️ Wednesday: Active Recovery & Mobility",
+      tasks: [
+        "20-30 min easy outdoor walk or light spin",
+        "Hamstring & Calf stretches (30s per leg)",
+        "Cat-Cow & Cobra stretches for back relief",
+        "Doorway chest opening stretches"
+      ]
+    },
+    4: { // Thursday
+      title: "🔥 Thursday: Tempo Run + Power & Grip",
+      tasks: [
+        "2.0-Mile Tempo Run (~9:40-9:50/mi pace)",
+        "4 x 40m Heavy Dumbbell Farmer's Carries (20-25 lb DBs)",
+        "3 x 10 Cable Horizontal Pallof Presses per side",
+        "3 x 8-10 Dumbbell Overhead Presses (10-12.5 lb DBs)"
+      ]
+    },
+    5: { // Friday
+      title: "⚡ Friday: Bodyweight Circuit & Core",
+      tasks: [
+        "3 Rounds: 10-12 Incline Push-ups",
+        "3 Rounds: 12 Dumbbell Goblet Squats",
+        "3 Rounds: 10 Inverted Rows / Cable Pulldowns",
+        "3 Rounds: 15 Walking Lunges",
+        "3 Rounds: 45-60 Second Forearm Plank"
+      ]
+    },
+    6: { // Saturday
+      title: "🏃‍♀️ Saturday: Long Aerobic Endurance Run",
+      tasks: [
+        "5-min warm-up walk",
+        "2.5-Mile Run at smooth easy pace (~10:00-10:15/mi)",
+        "Take 1-min walk breaks if needed",
+        "Post-run hydration & leg stretching"
+      ]
+    }
+  };
+
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const today = new Date();
+  const dayOfWeek = today.getDay();
+
+  document.getElementById('current-day-label').innerText = `${days[dayOfWeek]} Focus`;
+
+  const todayData = schedule[dayOfWeek];
+  document.getElementById('workout-title').innerText = todayData.title;
+
+  const taskListContainer = document.getElementById('taskList');
+  taskListContainer.innerHTML = '';
+
+  todayData.tasks.forEach((task, index) => {
+    const taskDiv = document.createElement('div');
+    taskDiv.className = 'task-item';
+    
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = `task-${index}`;
+
+    const label = document.createElement('label');
+    label.htmlFor = `task-${index}`;
+    label.innerText = task;
+
+    taskDiv.appendChild(checkbox);
+    taskDiv.appendChild(label);
+    taskListContainer.appendChild(taskDiv);
+  });
+</script>
+
+</body>
+</html>
